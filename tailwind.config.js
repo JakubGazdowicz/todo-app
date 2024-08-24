@@ -8,6 +8,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
+        './resources/css/presets/**/*.{js,vue,ts}',
     ],
 
     theme: {
@@ -18,5 +19,8 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        require('tailwindcss-primeui')
+    ],
 };
