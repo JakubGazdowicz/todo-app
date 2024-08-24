@@ -18,6 +18,10 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "chart.js": "^4.4.4",
+        "primevue": "^4.0.5",
+        "quill": "^2.0.2",
+        "tailwindcss-primeui": "^0.3.4",
         "typescript": "^5.5.4"
     }
 }
