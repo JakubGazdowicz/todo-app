@@ -1,0 +1,56 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TODO app Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "local server"
+        }
+    ],
+    "paths": {
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "User data",
+                "operationId": "ede45b19680d6fb1319013a741a05734",
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Profile",
+            "description": "Profile"
+        }
+    ]
+}
