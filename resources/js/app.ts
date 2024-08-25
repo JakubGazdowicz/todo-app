@@ -1,13 +1,14 @@
 import './bootstrap';
 import '../css/app.css';
+import '@/assets/styles.scss';
+import '@/assets/tailwind.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import PrimeVue from 'primevue/config';
-import Lara from '../css/presets/lara';
-
+import Aura from '@primevue/themes/aura';
 
 import AutoComplete from 'primevue/autocomplete';
 import CascadeSelect from 'primevue/cascadeselect';
@@ -96,6 +97,7 @@ import PanelMenu from 'primevue/panelmenu';
 import TieredMenu from 'primevue/tieredmenu';
 import Message from 'primevue/message';
 import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 import Carousel from 'primevue/carousel';
 import Galleria from 'primevue/galleria';
 import Image from 'primevue/image';
@@ -131,8 +133,12 @@ createInertiaApp({
             .use(ZiggyVue)
 
             .use(PrimeVue, {
-                unstyled: true,
-                pt: Lara,
+                theme: {
+                    preset: Aura,
+                    options: {
+                        darkModeSelector: '.app-dark'
+                    }
+                },
                 ripple: true,
             })
             .use(ToastService)
@@ -245,6 +251,7 @@ createInertiaApp({
             .component('Tag', Tag)
             .component('Terminal', Terminal)
             .component('TerminalService', TerminalService)
+            .component('Toast', Toast)
 
             .mount(el);
     },
