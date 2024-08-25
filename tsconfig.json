@@ -13,7 +13,7 @@
       "skipLibCheck": true,
 
      "paths": {
-         "@.*": ["./resources/js/*"]
+         "@/*": ["./resources/js/*"]
      },
       "experimentalDecorators": true
   },
