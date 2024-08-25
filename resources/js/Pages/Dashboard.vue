@@ -1,22 +1,26 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import AppLayout from "@/layout/AppLayout.vue";
 </script>
 
 <template>
-    <Head title="Dashboard" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+    <AppLayout>
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+                <div class="card mb-0">
+                    <div class="flex justify-between mb-4">
+                        <div>
+                            <span class="block text-muted-color font-medium mb-4">Orders</span>
+                            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">152</div>
+                        </div>
+                        <div class="flex items-center justify-center bg-blue-100 dark:bg-blue-400/10 rounded-border" style="width: 2.5rem; height: 2.5rem">
+                            <i class="pi pi-shopping-cart text-blue-500 !text-xl"></i>
+                        </div>
+                    </div>
+                    <span class="text-primary font-medium">24 new </span>
+                    <span class="text-muted-color">since last visit</span>
                 </div>
+                <Button />
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>
