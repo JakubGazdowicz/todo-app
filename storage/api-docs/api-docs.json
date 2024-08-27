@@ -11,14 +11,24 @@
         }
     ],
     "paths": {
-        "/api/profile": {
+        "/users": {
             "get": {
                 "tags": [
-                    "Profile"
+                    "User"
                 ],
-                "summary": "User data",
-                "operationId": "ede45b19680d6fb1319013a741a05734",
+                "summary": "Get users list",
+                "operationId": "7e2f5799553ec93c9c43e2a58490d447",
                 "responses": {
+                    "200": {
+                        "description": "Users retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Unauthorized"
                     },
@@ -28,16 +38,218 @@
                     "500": {
                         "description": "Server Error"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create new user",
+                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/StoreUserRequest"
+                            }
+                        }
                     }
-                ]
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/user/{user}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user",
+                "operationId": "6f888b021bf178e7e5dcbfe7746c2f9e",
+                "responses": {
+                    "200": {
+                        "description": "User retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/users/{user}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user",
+                "operationId": "caaec06bf33a577d630c028222869ee6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete user",
+                "operationId": "a4e18f8517afcc062825920ffb6cd762",
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
             }
         }
     },
     "components": {
+        "schemas": {
+            "User": {
+                "title": "User",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
+            "StoreUserRequest": {
+                "title": "Create User",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "StoreUserRequest"
+                }
+            },
+            "UpdateUserRequest": {
+                "title": "Update User",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UpdateUserRequest"
+                }
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
@@ -49,8 +261,8 @@
     },
     "tags": [
         {
-            "name": "Profile",
-            "description": "Profile"
+            "name": "User",
+            "description": "User"
         }
     ]
 }
