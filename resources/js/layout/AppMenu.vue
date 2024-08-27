@@ -14,9 +14,9 @@ const model = ref([
                 route: 'dashboard.index',
             },
             {
-                label: 'test',
-                icon: 'pi pi-fw pi-home',
-                route: 'profile.edit',
+                label: 'Użytkownicy',
+                icon: 'pi pi-fw pi-users',
+                route: 'users.index',
             }
         ]
     },
