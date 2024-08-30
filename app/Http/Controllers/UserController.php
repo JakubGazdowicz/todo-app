@@ -6,7 +6,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Inertia\Inertia;
 use Inertia\Response;
 use OpenApi\Attributes as OA;
@@ -132,5 +134,10 @@ class UserController extends Controller
         $this->userService->delete(user: $user);
 
         return to_route('users.index');
+    }
+
+    public function search(): AnonymousResourceCollection
+    {
+        return $this->userService->search(request()->input('query'));
     }
 }

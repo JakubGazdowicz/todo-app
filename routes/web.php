@@ -53,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/{taskCategory}', [TaskCategoryController::class, 'destroy'])
             ->name('task-categories.destroy');
+
+        Route::post('/{taskCategory}/attach-user', [TaskCategoryController::class, 'attachUser'])
+            ->name('task-categories.attach-user');
     });
 });
 

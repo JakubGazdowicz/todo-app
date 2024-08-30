@@ -2,6 +2,8 @@
 import {useToastHelper} from "@/Composables/useToastHelper";
 import {useForm} from "@inertiajs/vue3";
 import AppDialogModal from "@/Components/AppDialogModal.vue";
+import SearchAutocomplete from "@/Components/SearchAutocomplete.vue";
+import {UserResource} from "@/Pages/Resources/User.resource";
 
 const { toastSuccess, toastError } = useToastHelper();
 
@@ -10,13 +12,18 @@ const active = defineModel<boolean>('active');
 const form = useForm<{
     name: string;
     user_id: number | null;
+    user: UserResource | null;
 }>({
     name: '',
     user_id: null,
+    user: null,
 });
 
 const handleSubmit = () => {
-    form.post(route('task-categories.store'), {
+    form.transform((data) => ({
+        ...data,
+        user_id: data.user?.id,
+    })).post(route('task-categories.store'), {
         onSuccess: () => {
             toastSuccess('Kategoria została utworzona pomyślnie!');
             active.value = false;
@@ -53,13 +60,9 @@ const handleSubmit = () => {
             </div>
             <div class="flex flex-col gap-2">
                 <label for="name">Użytkownik</label>
-                <InputText
-                    id="name"
-                    v-model="form.user_id"
-                    maxlength="255"
-                    placeholder="Wybierz użytkownika"
-                    :class="{ 'p-invalid': form.errors.user_id }"
-                    @change="form.clearErrors('user_id')"
+                <SearchAutocomplete
+                    v-model="form.user"
+                    route="api.users.search"
                 />
                 <label class="p-1 p-invalid text-red-500">{{ form.errors.user_id }}</label>
             </div>

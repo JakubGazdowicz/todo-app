@@ -75,12 +75,13 @@ const confirmDelete = () => {
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-2 card">
+            <div class="grid grid-cols-1 card">
                 <div class="px-4">
                     <div class="mb-4 text-gray-400">Informacje dotyczące kategorii</div>
                     <ul class="p-0 m-0 list-none">
                         <ShowField label="ID" :value="taskCategory.id" />
                         <ShowField label="Nazwa" :value="taskCategory.name" />
+                        <ShowField label="Przypisany użytkownik" :value="taskCategory.user?.name" />
                         <ShowField label="Utworzono" :value="taskCategory.createdAt" />
                         <ShowField label="Zaktualizowano" :value="taskCategory.updatedAt" />
                     </ul>
@@ -88,7 +89,10 @@ const confirmDelete = () => {
             </div>
         </div>
     </AppLayout>
-    <EditTaskCategoryModal v-model:active="isEditTaskCategoryModalVisible" :taskCategory="taskCategory" />
+    <EditTaskCategoryModal
+        v-model:active="isEditTaskCategoryModalVisible"
+        :taskCategory="taskCategory"
+    />
 </template>
 
 <style scoped lang="scss">

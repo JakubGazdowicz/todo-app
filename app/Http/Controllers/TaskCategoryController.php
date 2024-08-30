@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AttachUserToTaskCategoryRequest;
 use App\Http\Requests\StoreTaskCategoryRequest;
 use App\Http\Requests\UpdateTaskCategoryRequest;
 use App\Models\TaskCategory;
@@ -132,5 +133,13 @@ class TaskCategoryController extends Controller
         $this->taskCategoryService->delete(taskCategory: $taskCategory);
 
         return to_route('task-categories.index');
+    }
+
+    public function attachUser(TaskCategory $taskCategory, AttachUserToTaskCategoryRequest $request): void
+    {
+        $this->taskCategoryService->attachUser(
+            taskCategory: $taskCategory,
+            data: $request->validated(),
+        );
     }
 }

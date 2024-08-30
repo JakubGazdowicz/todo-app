@@ -15,7 +15,7 @@ class TaskCategoryService
 
     public function getOne(TaskCategory $taskCategory): TaskCategoryResource
     {
-        return TaskCategoryResource::make($taskCategory);
+        return TaskCategoryResource::make($taskCategory->load('user'));
     }
 
     public function store(array $data): void
@@ -31,5 +31,10 @@ class TaskCategoryService
     public function delete(TaskCategory $taskCategory): void
     {
         $taskCategory->delete();
+    }
+
+    public function attachUser(TaskCategory $taskCategory, array $data): void
+    {
+        $taskCategory->update($data);
     }
 }
