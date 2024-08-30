@@ -17,6 +17,11 @@ const model = ref([
                 label: 'Użytkownicy',
                 icon: 'pi pi-fw pi-users',
                 route: 'users.index',
+            },
+            {
+                label: 'Kategorie zadań',
+                icon: 'pi pi-fw pi-tags',
+                route: 'task-categories.index',
             }
         ]
     },

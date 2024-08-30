@@ -37,7 +37,7 @@ const isCreateUserModalVisible = ref(false);
                 <template #empty>
                     <Message>Brak danych</Message>
                 </template>
-                <Column field="id" header="ID"></Column>
+                <Column field="id" header="ID" />
                 <Column field="name" header="Nazwa" />
                 <Column field="email" header="Email" />
                 <Column field="createdAt" header="Utworzono" />

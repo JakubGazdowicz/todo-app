@@ -1,30 +1,33 @@
 <script setup lang="ts">
-import AppDialogModal from "@/Components/AppDialogModal.vue";
-import {useForm} from "@inertiajs/vue3";
 import {useToastHelper} from "@/Composables/useToastHelper";
+import {TaskCategoryResource} from "@/Pages/Resources/TaskCategory.resource";
+import {useForm} from "@inertiajs/vue3";
+import AppDialogModal from "@/Components/AppDialogModal.vue";
 
 const { toastSuccess, toastError } = useToastHelper();
+
+const props = defineProps<{
+    taskCategory: TaskCategoryResource;
+}>();
 
 const active = defineModel<boolean>('active');
 
 const form = useForm<{
     name: string;
-    email: string;
-    password: string;
+    user_id: number | null;
 }>({
-   name: '',
-   email: '',
-   password: '',
+    name: props.taskCategory.name,
+    user_id: props.taskCategory?.userId,
 });
 
 const handleSubmit = () => {
-    form.post(route('users.store'), {
+    form.put(route('task-categories.update', props.taskCategory.id), {
         onSuccess: () => {
-            toastSuccess('Użytkownik został utworzony pomyślnie!');
+            toastSuccess('Kategoria została zaktualizowana pomyślnie!');
             active.value = false;
         },
         onError: () => {
-            toastError('Wystąpił błąd podczas tworzenia użytkownika');
+            toastError('Wystąpił błąd podczas aktualizowania kategorii');
         },
         preserveScroll: true,
     });
@@ -53,30 +56,16 @@ const handleSubmit = () => {
                 <label class="p-1 p-invalid text-red-500">{{ form.errors.name }}</label>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="email">Email<span class="text-red-500"> *</span></label>
+                <label for="userId">Użytkownik</label>
                 <InputText
-                    id="email"
-                    v-model="form.email"
+                    id="userId"
+                    v-model="form.user_id"
                     maxlength="255"
-                    placeholder="Podaj adres email"
-                    :class="{ 'p-invalid': form.errors.email }"
-                    @change="form.clearErrors('email')"
+                    placeholder="Wybierz użytkownika"
+                    :class="{ 'p-invalid': form.errors.user_id }"
+                    @change="form.clearErrors('user_id')"
                 />
-                <label class="p-1 p-invalid text-red-500">{{ form.errors.email }}</label>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="password">Hasło<span class="text-red-500"> *</span></label>
-                <Password
-                    id="password"
-                    v-model="form.password"
-                    maxlength="255"
-                    placeholder="Podaj hasło"
-                    toggleMask
-                    fluid
-                    :class="{ 'p-invalid': form.errors.password }"
-                    @change="form.clearErrors('password')"
-                />
-                <label class="p-1 p-invalid text-red-500">{{ form.errors.password }}</label>
+                <label class="p-1 p-invalid text-red-500">{{ form.errors.user_id }}</label>
             </div>
         </template>
     </AppDialogModal>

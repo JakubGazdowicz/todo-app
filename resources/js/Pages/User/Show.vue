@@ -75,7 +75,6 @@ const confirmDelete = () => {
                     />
                 </div>
             </div>
-
         </div>
         <div class="grid grid-cols-2 card">
             <div class="px-4">
@@ -91,7 +90,7 @@ const confirmDelete = () => {
 
             <div class="px-4">
                 <div class="mb-4 text-gray-400">Zadania przypisane do użytkownika</div>
-
+<!--                TODO: -->
             </div>
         </div>
     </AppLayout>
