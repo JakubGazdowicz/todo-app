@@ -11,6 +11,155 @@
         }
     ],
     "paths": {
+        "/task-categories": {
+            "get": {
+                "tags": [
+                    "Task Category"
+                ],
+                "summary": "Get task categories list",
+                "operationId": "53fffc44bfaf08594881d5fbe7a78c60",
+                "responses": {
+                    "200": {
+                        "description": "Task categories retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskCategoryResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Task Category"
+                ],
+                "summary": "Create new task category",
+                "operationId": "a9b125abaf498341c76ee590985e0f36",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/StoreTaskCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task category created successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/task-categories/{taskCategory}": {
+            "get": {
+                "tags": [
+                    "Task Category"
+                ],
+                "summary": "Get task category",
+                "operationId": "3ed5a7aa0cf1a555744234c443287b35",
+                "responses": {
+                    "200": {
+                        "description": "Task category retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskCategoryResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Task Category"
+                ],
+                "summary": "Update task category",
+                "operationId": "9e98ded6b5d3ecb9c7d0d4c1db36cb8d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/UpdateTaskCategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task category updated successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Task Category"
+                ],
+                "summary": "Delete task category",
+                "operationId": "cf8b2f34952f0399f7a9eb0413df7d2d",
+                "responses": {
+                    "200": {
+                        "description": "Task category deleted successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "tags": [
@@ -75,13 +224,13 @@
                 }
             }
         },
-        "/user/{user}": {
+        "/users/{user}": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "Get user",
-                "operationId": "6f888b021bf178e7e5dcbfe7746c2f9e",
+                "operationId": "0b9800c6a2369ce94c1efa162edfa374",
                 "responses": {
                     "200": {
                         "description": "User retrieved successfully",
@@ -103,9 +252,7 @@
                         "description": "Server Error"
                     }
                 }
-            }
-        },
-        "/users/{user}": {
+            },
             "put": {
                 "tags": [
                     "User"
@@ -165,6 +312,31 @@
     },
     "components": {
         "schemas": {
+            "TaskCategory": {
+                "title": "Task Category",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskCategory"
+                }
+            },
             "User": {
                 "title": "User",
                 "properties": {
@@ -190,6 +362,38 @@
                 "type": "object",
                 "xml": {
                     "name": "User"
+                }
+            },
+            "StoreTaskCategoryRequest": {
+                "title": "Create Task Category",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "StoreTaskCategoryRequest"
+                }
+            },
+            "UpdateTaskCategoryRequest": {
+                "title": "Update Task Category",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UpdateTaskCategoryRequest"
                 }
             },
             "StoreUserRequest": {
@@ -223,6 +427,31 @@
                 "type": "object",
                 "xml": {
                     "name": "UpdateUserRequest"
+                }
+            },
+            "TaskCategoryResource": {
+                "title": "TaskCategoryResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskCategoryResource"
                 }
             },
             "UserResource": {
@@ -260,6 +489,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Task Category",
+            "description": "Task Category"
+        },
         {
             "name": "User",
             "description": "User"

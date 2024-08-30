@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,23 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/{user}', [UserController::class, 'destroy'])
             ->name('users.destroy');
+    });
+
+    Route::prefix('/task-categories')->group(function () {
+        Route::get('/', [TaskCategoryController::class, 'index'])
+            ->name('task-categories.index');
+
+        Route::get('/{taskCategory}', [TaskCategoryController::class, 'show'])
+            ->name('task-categories.show');
+
+        Route::post('/', [TaskCategoryController::class, 'store'])
+            ->name('task-categories.store');
+
+        Route::put('/{taskCategory}', [TaskCategoryController::class, 'update'])
+            ->name('task-categories.update');
+
+        Route::delete('/{taskCategory}', [TaskCategoryController::class, 'destroy'])
+            ->name('task-categories.destroy');
     });
 });
 

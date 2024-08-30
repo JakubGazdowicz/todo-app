@@ -1,33 +1,28 @@
 <script setup lang="ts">
 import {useToastHelper} from "@/Composables/useToastHelper";
-import {UserResource} from "@/Pages/Resources/User.resource";
 import {useForm} from "@inertiajs/vue3";
 import AppDialogModal from "@/Components/AppDialogModal.vue";
 
 const { toastSuccess, toastError } = useToastHelper();
 
-const props = defineProps<{
-    user: UserResource;
-}>()
-
 const active = defineModel<boolean>('active');
 
 const form = useForm<{
     name: string;
-    email: string;
+    user_id: number | null;
 }>({
-    name: props.user.name,
-    email: props.user.email,
+    name: '',
+    user_id: null,
 });
 
 const handleSubmit = () => {
-    form.put(route('users.update', props.user.id), {
+    form.post(route('task-categories.store'), {
         onSuccess: () => {
-            toastSuccess('Użytkownik został zaktualizowany pomyślnie!');
+            toastSuccess('Kategoria została utworzona pomyślnie!');
             active.value = false;
         },
         onError: () => {
-            toastError('Wystąpił błąd podczas aktualizowania użytkownika');
+            toastError('Wystąpił błąd podczas tworzenia kategorii');
         },
         preserveScroll: true,
     });
@@ -45,27 +40,28 @@ const handleSubmit = () => {
         <template #fields>
             <div class="flex flex-col gap-2">
                 <label for="name">Nazwa<span class="text-red-500"> *</span></label>
+
                 <InputText
                     id="name"
                     v-model="form.name"
                     maxlength="255"
-                    placeholder="Podaj nazwę użytkownika"
+                    placeholder="Podaj nazwę kategorii"
                     :class="{ 'p-invalid': form.errors.name }"
                     @change="form.clearErrors('name')"
                 />
                 <label class="p-1 p-invalid text-red-500">{{ form.errors.name }}</label>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="email">Email<span class="text-red-500"> *</span></label>
+                <label for="name">Użytkownik</label>
                 <InputText
-                    id="email"
-                    v-model="form.email"
+                    id="name"
+                    v-model="form.user_id"
                     maxlength="255"
-                    placeholder="Podaj adres email"
-                    :class="{ 'p-invalid': form.errors.email }"
-                    @change="form.clearErrors('email')"
+                    placeholder="Wybierz użytkownika"
+                    :class="{ 'p-invalid': form.errors.user_id }"
+                    @change="form.clearErrors('user_id')"
                 />
-                <label class="p-1 p-invalid text-red-500">{{ form.errors.email }}</label>
+                <label class="p-1 p-invalid text-red-500">{{ form.errors.user_id }}</label>
             </div>
         </template>
     </AppDialogModal>

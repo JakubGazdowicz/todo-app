@@ -23,6 +23,7 @@ describe('UserApiTest', function () {
             });
        });
    });
+
    describe('show', function () {
       it('should return an Inertia page with a user', function () {
           $response = $this
@@ -47,6 +48,7 @@ describe('UserApiTest', function () {
               });
       });
    });
+
    describe('store', function () {
         it('should create user with valid data', function () {
             $userData = [

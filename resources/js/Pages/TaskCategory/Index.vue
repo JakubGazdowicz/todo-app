@@ -1,16 +1,15 @@
 <script setup lang="ts">
-
-import AppLayout from "@/layout/AppLayout.vue";
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {TaskCategoryResource} from "@/Pages/Resources/TaskCategory.resource";
 import {ref} from "vue";
-import CreateUserModal from "@/Pages/User/Components/CreateUserModal.vue";
+import AppLayout from "@/layout/AppLayout.vue";
 import handleRowClick from "@/utils/handleRowClick";
+import CreateTaskCategoryModal from "@/Pages/TaskCategory/Components/CreateTaskCategoryModal.vue";
 
 defineProps<{
-    users: UserResource[];
+    taskCategories: TaskCategoryResource[];
 }>();
 
-const isCreateUserModalVisible = ref(false);
+const isCreateTaskCategoryModalVisible = ref(false);
 </script>
 
 <template>
@@ -18,34 +17,33 @@ const isCreateUserModalVisible = ref(false);
         <div class="card">
             <div class="flex justify-between">
                 <div class="font-semibold text-xl mb-4">
-                    Użytkownicy
+                    Kategorie zadań
                 </div>
                 <Button
                     icon="pi pi-plus"
-                    label="Dodaj użytkownika"
+                    label="Dodaj kategorię"
                     class="w-auto h-[3rem]"
                     size="large"
-                    @click="isCreateUserModalVisible = true"
+                    @click="isCreateTaskCategoryModalVisible = true"
                 />
             </div>
             <DataTable
-                :value="users"
+                :value="taskCategories"
                 class="mt-4"
                 :rowClass="() => 'cursor-pointer hover:bg-primary-400 transition-colors'"
-                @row-click="handleRowClick('users.show', $event)"
+                @row-click="handleRowClick('task-categories.show', $event)"
             >
                 <template #empty>
                     <Message>Brak danych</Message>
                 </template>
                 <Column field="id" header="ID" />
                 <Column field="name" header="Nazwa" />
-                <Column field="email" header="Email" />
                 <Column field="createdAt" header="Utworzono" />
                 <Column field="updatedAt" header="Zaktualizowano" />
             </DataTable>
         </div>
     </AppLayout>
-    <CreateUserModal v-model:active="isCreateUserModalVisible" />
+    <CreateTaskCategoryModal v-model:active="isCreateTaskCategoryModalVisible" />
 </template>
 
 <style scoped lang="scss">
