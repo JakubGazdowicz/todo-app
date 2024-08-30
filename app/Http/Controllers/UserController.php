@@ -136,6 +136,8 @@ class UserController extends Controller
         return to_route('users.index');
     }
 
+    #TODO: Dokumentacja
+    #TODO: Testy
     public function search(): AnonymousResourceCollection
     {
         return $this->userService->search(request()->input('query'));

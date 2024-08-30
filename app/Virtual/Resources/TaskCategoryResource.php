@@ -24,4 +24,7 @@ class TaskCategoryResource
 
     #[OA\Property]
     public string $updated_at;
+
+    #[OA\Property]
+    public ?UserResource $user;
 }
