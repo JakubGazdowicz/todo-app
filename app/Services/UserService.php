@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,5 +35,16 @@ class UserService
     public function delete(User $user): void
     {
         $user->delete();
+    }
+
+    public function search(?string $search = null): AnonymousResourceCollection
+    {
+        if (!$search) {
+            return UserResource::collection(User::all());
+        }
+
+        $usersSearched = User::search($search)->get();
+
+        return UserResource::collection($usersSearched);
     }
 }

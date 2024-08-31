@@ -21,6 +21,8 @@ class TaskCategoryResource extends JsonResource
             'userId' => $this->user_id,
             'createdAt' => Carbon::dateFormat($this->created_at),
             'updatedAt' => Carbon::dateFormat($this->updated_at),
+
+            'user' => UserResource::make($this->whenLoaded('user')),
         ];
     }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
     label: string;
-    value: string | number;
+    value: string | number | undefined;
 }>()
 </script>
 
@@ -11,7 +11,7 @@ defineProps<{
             {{ label }}
         </div>
         <div class="w-3/4 text-900 flex-order-1">
-            {{ value }}
+            {{ value ?? '-' }}
         </div>
     </li>
 </template>

@@ -149,4 +149,28 @@ describe('TaskCategoryApiTest', function () {
             });
         });
     });
+
+    describe('attachUser', function () {
+       it('should attach user to the task category', function () {
+           $task = TaskCategory::factory()->create([
+               'user_id' => null
+           ]);
+
+           $attachData = [
+               'user_id' => $this->user->id,
+           ];
+
+           $response = $this
+               ->actingAs($this->user)
+               ->postJson(route('task-categories.attach-user', $task), $attachData)
+               ->assertOk();
+
+           $response->when($response->status() === 200, function () use ($attachData, $task) {
+               $this->assertDatabaseHas('task_categories', [
+                   'name' => $task->name,
+                   'user_id' => $attachData['user_id'],
+               ]);
+           });
+       });
+    });
 });

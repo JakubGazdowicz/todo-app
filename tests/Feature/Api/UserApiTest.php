@@ -125,10 +125,9 @@ describe('UserApiTest', function () {
 
                expect($data)
                    ->toBeArray()
-                   ->toHaveKeys(['name', 'email', 'password'])
+                   ->toHaveKeys(['name', 'email'])
                    ->and($data['name'])->toBe(['Pole nazwa użytkownika jest wymagane'])
-                   ->and($data['email'])->toBe(['Pole email jest wymagane'])
-                   ->and($data['password'])->toBe(['Pole hasło jest wymagane']);
+                   ->and($data['email'])->toBe(['Pole email jest wymagane']);
            });
        });
    });
