@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import {ref} from "vue";
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {UserResource} from "@/Resources/User.resource";
 
 const props = defineProps<{
     route: string;

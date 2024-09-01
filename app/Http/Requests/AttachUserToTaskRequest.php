@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AttachUserToTaskCategoryRequest extends FormRequest
+class AttachUserToTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class AttachUserToTaskCategoryRequest extends FormRequest
         return [
             'user_id' => [
                 'nullable',
-                'exists:App\Models\User,id',
+                'exists:App\Models\User,id'
             ]
         ];
     }

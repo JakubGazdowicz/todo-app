@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useConfirm} from "primevue/useconfirm";
 import {useToastHelper} from "@/Composables/useToastHelper";
-import {TaskCategoryResource} from "@/Pages/Resources/TaskCategory.resource";
+import {TaskCategoryResource} from "@/Resources/TaskCategory.resource";
 import {ref} from "vue";
 import {router} from "@inertiajs/vue3";
 import AppLayout from "@/layout/AppLayout.vue";

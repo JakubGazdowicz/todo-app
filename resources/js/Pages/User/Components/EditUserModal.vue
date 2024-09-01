@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useToastHelper} from "@/Composables/useToastHelper";
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {UserResource} from "@/Resources/User.resource";
 import {useForm} from "@inertiajs/vue3";
 import AppDialogModal from "@/Components/AppDialogModal.vue";
 

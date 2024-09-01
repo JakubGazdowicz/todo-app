@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import {TaskCategoryResource} from "@/Resources/TaskCategory.resource";
+import {TaskResource} from "@/Resources/Task.resource";
 import {ref} from "vue";
 import AppLayout from "@/layout/AppLayout.vue";
 import handleRowClick from "@/utils/handleRowClick";
-import CreateTaskCategoryModal from "@/Pages/TaskCategory/Components/CreateTaskCategoryModal.vue";
+import CreateTaskModal from "@/Pages/Task/Components/CreateTaskModal.vue";
 
 defineProps<{
-    taskCategories: TaskCategoryResource[];
+    tasks: TaskResource[];
 }>();
 
-const isCreateTaskCategoryModalVisible = ref(false);
+const isCreateTaskModalVisible = ref(false);
 </script>
 
 <template>
@@ -17,33 +17,38 @@ const isCreateTaskCategoryModalVisible = ref(false);
         <div class="card">
             <div class="flex justify-between">
                 <div class="font-semibold text-xl mb-4">
-                    Kategorie zadań
+                    Zadania
                 </div>
                 <Button
                     icon="pi pi-plus"
-                    label="Dodaj kategorię"
+                    label="Dodaj zadanie"
                     class="w-auto h-[3rem]"
                     size="large"
-                    @click="isCreateTaskCategoryModalVisible = true"
+                    @click="isCreateTaskModalVisible = true"
                 />
             </div>
             <DataTable
-                :value="taskCategories"
+                :value="tasks"
                 class="mt-4"
                 :rowClass="() => 'cursor-pointer hover:bg-primary-400 transition-colors'"
-                @row-click="handleRowClick('task-categories.show', $event)"
+                @row-click="handleRowClick('tasks.show', $event)"
             >
                 <template #empty>
                     <Message>Brak danych</Message>
                 </template>
                 <Column field="id" header="ID" />
                 <Column field="name" header="Nazwa" />
+                <Column field="durationMinutes" header="Przewidywany czas">
+                    <template #body="{ data }">
+                        {{ data.durationMinutes + ' minut' }}
+                    </template>
+                </Column>
                 <Column field="createdAt" header="Utworzono" />
                 <Column field="updatedAt" header="Zaktualizowano" />
             </DataTable>
         </div>
     </AppLayout>
-    <CreateTaskCategoryModal v-model:active="isCreateTaskCategoryModalVisible" />
+    <CreateTaskModal v-model:active="isCreateTaskModalVisible" />
 </template>
 
 <style scoped lang="scss">

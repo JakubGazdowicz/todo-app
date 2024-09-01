@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import AppLayout from "@/layout/AppLayout.vue";
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {UserResource} from "@/Resources/User.resource";
 import {ref} from "vue";
 import CreateUserModal from "@/Pages/User/Components/CreateUserModal.vue";
 import handleRowClick from "@/utils/handleRowClick";
@@ -39,6 +39,11 @@ const isCreateUserModalVisible = ref(false);
                 </template>
                 <Column field="id" header="ID" />
                 <Column field="name" header="Nazwa" />
+                <Column field="remainingMinutes" header="Pozostały czas">
+                    <template #body="{ data }">
+                        {{ data.remainingMinutes + ' minut' }}
+                    </template>
+                </Column>
                 <Column field="email" header="Email" />
                 <Column field="createdAt" header="Utworzono" />
                 <Column field="updatedAt" header="Zaktualizowano" />

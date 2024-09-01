@@ -3,7 +3,7 @@ import {useToastHelper} from "@/Composables/useToastHelper";
 import {useForm} from "@inertiajs/vue3";
 import AppDialogModal from "@/Components/AppDialogModal.vue";
 import SearchAutocomplete from "@/Components/SearchAutocomplete.vue";
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {UserResource} from "@/Resources/User.resource";
 
 const { toastSuccess, toastError } = useToastHelper();
 
@@ -47,7 +47,6 @@ const handleSubmit = () => {
         <template #fields>
             <div class="flex flex-col gap-2">
                 <label for="name">Nazwa<span class="text-red-500"> *</span></label>
-
                 <InputText
                     id="name"
                     v-model="form.name"
