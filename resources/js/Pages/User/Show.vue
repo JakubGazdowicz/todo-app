@@ -87,11 +87,6 @@ const confirmDelete = () => {
                     <ShowField label="Zaktualizowano" :value="user.updatedAt" />
                 </ul>
             </div>
-
-            <div class="px-4">
-                <div class="mb-4 text-gray-400">Zadania przypisane do użytkownika</div>
-<!--                TODO: -->
-            </div>
         </div>
     </AppLayout>
     <EditUserModal v-model:active="isEditUserModalVisible" :user="user" />

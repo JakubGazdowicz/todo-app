@@ -5,9 +5,10 @@ import {UserResource} from "@/Resources/User.resource";
 import {ref} from "vue";
 import CreateUserModal from "@/Pages/User/Components/CreateUserModal.vue";
 import handleRowClick from "@/utils/handleRowClick";
+import {PaginateResource} from "@/Resources/Paginate.resource";
 
 defineProps<{
-    users: UserResource[];
+    users: PaginateResource<UserResource[]>;
 }>();
 
 const isCreateUserModalVisible = ref(false);
@@ -29,7 +30,7 @@ const isCreateUserModalVisible = ref(false);
                 />
             </div>
             <DataTable
-                :value="users"
+                :value="users.data"
                 class="mt-4"
                 :rowClass="() => 'cursor-pointer hover:bg-primary-400 transition-colors'"
                 @row-click="handleRowClick('users.show', $event)"

@@ -17,6 +17,9 @@ class UserResource
     public string $name;
 
     #[OA\Property]
+    public int $remainingMinutes;
+
+    #[OA\Property]
     public string $email;
 
     #[OA\Property]

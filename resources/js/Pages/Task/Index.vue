@@ -4,9 +4,10 @@ import {ref} from "vue";
 import AppLayout from "@/layout/AppLayout.vue";
 import handleRowClick from "@/utils/handleRowClick";
 import CreateTaskModal from "@/Pages/Task/Components/CreateTaskModal.vue";
+import {PaginateResource} from "@/Resources/Paginate.resource";
 
 defineProps<{
-    tasks: TaskResource[];
+    tasks: PaginateResource<TaskResource[]>;
 }>();
 
 const isCreateTaskModalVisible = ref(false);
@@ -28,7 +29,7 @@ const isCreateTaskModalVisible = ref(false);
                 />
             </div>
             <DataTable
-                :value="tasks"
+                :value="tasks.data"
                 class="mt-4"
                 :rowClass="() => 'cursor-pointer hover:bg-primary-400 transition-colors'"
                 @row-click="handleRowClick('tasks.show', $event)"

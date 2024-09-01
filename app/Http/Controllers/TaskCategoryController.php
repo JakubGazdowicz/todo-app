@@ -138,7 +138,6 @@ class TaskCategoryController extends Controller
         return to_route('task-categories.index');
     }
 
-    #TODO: Dokumentacja
     public function attachUser(TaskCategory $taskCategory, AttachUserToTaskCategoryRequest $request): void
     {
         $this->taskCategoryService->update(

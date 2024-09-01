@@ -142,7 +142,6 @@ class TaskController extends Controller
         return to_route('tasks.index');
     }
 
-    // #TODO: dokumentacja
     public function attachUser(Task $task, AttachUserToTaskRequest $request): void
     {
         $this->taskService->update(
@@ -151,7 +150,6 @@ class TaskController extends Controller
         );
     }
 
-    // #TODO: dokumentacja
     public function attachTaskCategory(Task $task, AttachTaskCategoryToTaskRequest $request): void
     {
         $this->taskService->update(
