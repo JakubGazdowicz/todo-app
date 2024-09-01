@@ -10,7 +10,7 @@ class TaskCategoryService
 {
     public function getTaskCategories(): AnonymousResourceCollection
     {
-        return TaskCategoryResource::collection(TaskCategory::all());
+        return TaskCategoryResource::collection(TaskCategory::paginate(10));
     }
 
     public function getOne(TaskCategory $taskCategory): TaskCategoryResource

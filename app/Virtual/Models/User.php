@@ -17,6 +17,9 @@ class User
     public string $name;
 
     #[OA\Property]
+    public int $remaining_minutes;
+
+    #[OA\Property]
     public string $email;
 
     #[OA\Property]

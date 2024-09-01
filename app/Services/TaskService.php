@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Validation\ValidationException;
 
@@ -12,7 +11,7 @@ class TaskService
 {
     public function getTasks(): AnonymousResourceCollection
     {
-        return TaskResource::collection(Task::all());
+        return TaskResource::collection(Task::paginate(10));
     }
 
     public function getOne(Task $task): TaskResource

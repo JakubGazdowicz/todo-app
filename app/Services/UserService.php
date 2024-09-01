@@ -12,7 +12,7 @@ class UserService
 {
     public function getUsers(): AnonymousResourceCollection
     {
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::paginate(10));
     }
 
     public function getOne(User $user): UserResource
