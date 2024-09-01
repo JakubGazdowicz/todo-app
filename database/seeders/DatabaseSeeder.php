@@ -18,8 +18,5 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => 'password'
         ]);
-
-        $this->call(TaskCategorySeeder::class);
-        $this->call(TaskSeeder::class);
     }
 }
