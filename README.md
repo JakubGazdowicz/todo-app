@@ -32,3 +32,22 @@ https://github.com/DarkaOnLine/L5-Swagger
 login: test@example.com
 
 hasło: password
+
+## Instalacja
+
+composer install
+
+cp .env.example .env
+
+./vendor/bin/sail up -d
+
+./vendor/bin/sail npm install
+
+./vendor/bin/sail php artisan key:generate
+
+./vendor/bin/sail php artisan test
+
+./vendor/bin/sail php artisan migrate:fresh --seed
+
+./vendor/bin/sail npm run dev
+
