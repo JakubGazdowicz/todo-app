@@ -15,7 +15,7 @@ Od siebie dodałem Inertia.js wraz z komponentami od PrimeVue w szablonie Sakai
 
 Do testów wykorzystałem Pest.php
 
-Do napisania dokumentacji użyłem biblioteki L5-Swagger
+Do napisania dokumentacji użyłem biblioteki L5-Swagger, która jest dostępna pod /api/documentation
 
 https://inertiajs.com
 
@@ -32,5 +32,3 @@ https://github.com/DarkaOnLine/L5-Swagger
 login: test@example.com
 
 hasło: password
-
-
