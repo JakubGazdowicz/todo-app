@@ -5,10 +5,10 @@ namespace App\Virtual\Resources;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    title: 'TaskCategoryResource',
-    xml: new OA\Xml(name: 'TaskCategoryResource')
+    title: 'TaskResource',
+    xml: new OA\Xml(name: 'TaskResource')
 )]
-class TaskCategoryResource
+class TaskResource
 {
     #[OA\Property]
     public int $id;
@@ -17,7 +17,16 @@ class TaskCategoryResource
     public string $name;
 
     #[OA\Property]
+    public int $durationMinutes;
+
+    #[OA\Property]
+    public ?string $description;
+
+    #[OA\Property]
     public ?int $userId;
+
+    #[OA\Property]
+    public ?int $taskCategoryId;
 
     #[OA\Property]
     public string $createdAt;
@@ -27,4 +36,7 @@ class TaskCategoryResource
 
     #[OA\Property]
     public ?UserResource $user;
+
+    #[OA\Property]
+    public ?TaskCategoryResource $taskCategory;
 }

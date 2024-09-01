@@ -33,8 +33,14 @@ class TaskCategoryService
         $taskCategory->delete();
     }
 
-    public function attachUser(TaskCategory $taskCategory, array $data): void
+    public function search(?string $search = null): AnonymousResourceCollection
     {
-        $taskCategory->update($data);
+        if (!$search) {
+            return TaskCategoryResource::collection(TaskCategory::all());
+        }
+
+        $taskCategoriesSearched = TaskCategory::search($search)->get();
+
+        return TaskCategoryResource::collection($taskCategoriesSearched);
     }
 }

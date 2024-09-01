@@ -38,10 +38,11 @@ describe('UserApiTest', function () {
                   $data = $response['page']['props']['user'];
 
                   expect($data)->toBeArray()->toHaveKeys([
-                      'id', 'name', 'email', 'createdAt', 'updatedAt'
+                      'id', 'name', 'remainingMinutes', 'email', 'createdAt', 'updatedAt'
                   ])
                       ->and($data['id'])->toBe($this->user->id)
                       ->and($data['name'])->toBe($this->user->name)
+                      ->and($data['remainingMinutes'])->toBe($this->user->remaining_minutes)
                       ->and($data['email'])->toBe($this->user->email)
                       ->and($data['createdAt'])->toBe(Carbon::dateFormat($this->user->created_at))
                       ->and($data['updatedAt'])->toBe(Carbon::dateFormat($this->user->updated_at));

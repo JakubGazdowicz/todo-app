@@ -2,31 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
-use App\Services\UserService;
-use Exception;
+use App\Http\Requests\AttachTaskCategoryToTaskRequest;
+use App\Http\Requests\AttachUserToTaskRequest;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Task;
+use App\Services\TaskService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
-use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use OpenApi\Attributes as OA;
 
-class UserController extends Controller
+class TaskController extends Controller
 {
-    public function __construct(protected UserService $userService) {}
+    public function __construct(protected TaskService $taskService) {}
 
     #[OA\Get(
-        path: '/users',
-        summary: 'Get users list',
-        tags: ['User'],
+        path: '/tasks',
+        summary: 'Get tasks list',
+        tags: ['Task'],
         responses: [
             new OA\Response(
                 response: ResponseAlias::HTTP_OK,
-                description: 'Users retrieved successfully',
-                content: new OA\JsonContent(ref: '#/components/schemas/UserResource')
+                description: 'Tasks retrieved successfully',
+                content: new OA\JsonContent(ref: '#/components/schemas/TaskResource')
             ),
             new OA\Response(response: ResponseAlias::HTTP_UNAUTHORIZED, description: 'Unauthorized'),
             new OA\Response(response: ResponseAlias::HTTP_NOT_FOUND, description: 'Not found'),
@@ -35,45 +36,48 @@ class UserController extends Controller
     )]
     public function index(): Response
     {
-        return Inertia::render('User/Index', [
-            'users' => $this->userService->getUsers(),
+        return Inertia::render('Task/Index', [
+            'tasks' => $this->taskService->getTasks(),
         ]);
     }
 
     #[OA\Get(
-        path: '/users/{user}',
-        summary: 'Get user',
-        tags: ['User'],
+        path: '/tasks/{task}',
+        summary: 'Get task',
+        tags: ['Task'],
         responses: [
             new OA\Response(
                 response: ResponseAlias::HTTP_OK,
-                description: 'User retrieved successfully',
-                content: new OA\JsonContent(ref: '#/components/schemas/UserResource')
+                description: 'Task retrieved successfully',
+                content: new OA\JsonContent(ref: '#/components/schemas/TaskResource')
             ),
             new OA\Response(response: ResponseAlias::HTTP_UNAUTHORIZED, description: 'Unauthorized'),
             new OA\Response(response: ResponseAlias::HTTP_NOT_FOUND, description: 'Not found'),
             new OA\Response(response: ResponseAlias::HTTP_INTERNAL_SERVER_ERROR, description: 'Server Error'),
         ]
     )]
-    public function show(User $user): Response
+    public function show(Task $task): Response
     {
-        return Inertia::render('User/Show', [
-            'user' => $this->userService->getOne(user: $user),
+        return Inertia::render('Task/Show', [
+            'task' => $this->taskService->getOne(task: $task),
         ]);
     }
 
+    /**
+     * @throws ValidationException
+     */
     #[OA\Post(
-        path: '/users',
-        summary: 'Create new user',
+        path: '/tasks',
+        summary: 'Create new task',
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\JsonContent(ref: '#components/schemas/StoreUserRequest')
+            content: new OA\JsonContent(ref: '#components/schemas/StoreTaskRequest')
         ),
-        tags: ['User'],
+        tags: ['Task'],
         responses: [
             new OA\Response(
                 response: ResponseAlias::HTTP_OK,
-                description: 'User created successfully',
+                description: 'Task created successfully',
             ),
             new OA\Response(response: ResponseAlias::HTTP_UNAUTHORIZED, description: 'Unauthorized'),
             new OA\Response(response: ResponseAlias::HTTP_NOT_FOUND, description: 'Not found'),
@@ -81,25 +85,25 @@ class UserController extends Controller
             new OA\Response(response: ResponseAlias::HTTP_INTERNAL_SERVER_ERROR, description: 'Server Error'),
         ]
     )]
-    public function store(StoreUserRequest $request): void
+    public function store(StoreTaskRequest $request): void
     {
-        $this->userService->store(
+        $this->taskService->store(
             data: $request->validated()
         );
     }
 
     #[OA\Put(
-        path: '/users/{user}',
-        summary: 'Update user',
+        path: '/tasks/{task}',
+        summary: 'Update task',
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\JsonContent(ref: '#components/schemas/UpdateUserRequest')
+            content: new OA\JsonContent(ref: '#components/schemas/UpdateTaskRequest')
         ),
-        tags: ['User'],
+        tags: ['Task'],
         responses: [
             new OA\Response(
                 response: ResponseAlias::HTTP_OK,
-                description: 'User updated successfully',
+                description: 'Task updated successfully',
             ),
             new OA\Response(response: ResponseAlias::HTTP_UNAUTHORIZED, description: 'Unauthorized'),
             new OA\Response(response: ResponseAlias::HTTP_NOT_FOUND, description: 'Not found'),
@@ -107,41 +111,52 @@ class UserController extends Controller
             new OA\Response(response: ResponseAlias::HTTP_INTERNAL_SERVER_ERROR, description: 'Server Error'),
         ]
     )]
-    public function update(User $user, UpdateUserRequest $request): void
+    public function update(Task $task, UpdateTaskRequest $request): void
     {
-        $this->userService->update(
-            user: $user,
+        $this->taskService->update(
+            task: $task,
             data: $request->validated(),
         );
     }
 
     #[OA\Delete(
-        path: '/users/{user}',
-        summary: 'Delete user',
-        tags: ['User'],
+        path: '/tasks/{task}',
+        summary: 'Delete task',
+        tags: ['Task'],
         responses: [
             new OA\Response(
                 response: ResponseAlias::HTTP_OK,
-                description: 'User deleted successfully',
+                description: 'Task deleted successfully',
             ),
             new OA\Response(response: ResponseAlias::HTTP_UNAUTHORIZED, description: 'Unauthorized'),
             new OA\Response(response: ResponseAlias::HTTP_NOT_FOUND, description: 'Not found'),
             new OA\Response(response: ResponseAlias::HTTP_INTERNAL_SERVER_ERROR, description: 'Server Error'),
         ]
     )]
-    public function destroy(User $user): RedirectResponse
+    public function destroy(Task $task): RedirectResponse
     {
-        $this->userService->delete(user: $user);
+        $this->taskService->delete(
+            task: $task
+        );
 
-        return to_route('users.index');
+        return to_route('tasks.index');
     }
 
-    #TODO: Dokumentacja
-    #TODO: Testy
-    public function search(): AnonymousResourceCollection
+    // #TODO: dokumentacja
+    public function attachUser(Task $task, AttachUserToTaskRequest $request): void
     {
-        return $this->userService->search(
-            search: request()->input('query')
+        $this->taskService->update(
+            task: $task,
+            data: $request->validated(),
+        );
+    }
+
+    // #TODO: dokumentacja
+    public function attachTaskCategory(Task $task, AttachTaskCategoryToTaskRequest $request): void
+    {
+        $this->taskService->update(
+            task: $task,
+            data: $request->validated(),
         );
     }
 }

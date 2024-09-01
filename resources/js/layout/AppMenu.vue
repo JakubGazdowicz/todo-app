@@ -22,6 +22,11 @@ const model = ref([
                 label: 'Kategorie zadań',
                 icon: 'pi pi-fw pi-tags',
                 route: 'task-categories.index',
+            },
+            {
+                label: 'Zadania',
+                icon: 'pi pi-fw pi-list',
+                route: 'tasks.index'
             }
         ]
     },

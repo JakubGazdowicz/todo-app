@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTaskCategoryRequest;
 use App\Models\TaskCategory;
 use App\Services\TaskCategoryService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -130,7 +131,9 @@ class TaskCategoryController extends Controller
     )]
     public function destroy(TaskCategory $taskCategory): RedirectResponse
     {
-        $this->taskCategoryService->delete(taskCategory: $taskCategory);
+        $this->taskCategoryService->delete(
+            taskCategory: $taskCategory
+        );
 
         return to_route('task-categories.index');
     }
@@ -138,9 +141,16 @@ class TaskCategoryController extends Controller
     #TODO: Dokumentacja
     public function attachUser(TaskCategory $taskCategory, AttachUserToTaskCategoryRequest $request): void
     {
-        $this->taskCategoryService->attachUser(
+        $this->taskCategoryService->update(
             taskCategory: $taskCategory,
             data: $request->validated(),
+        );
+    }
+
+    public function search(): AnonymousResourceCollection
+    {
+        return $this->taskCategoryService->search(
+            search: request()->input('query')
         );
     }
 }

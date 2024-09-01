@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         //
+    })
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->call(function () {
+            User::query()->update(['remaining_minutes' => 9600]);
+        })->monthlyOn(1, '0:0');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

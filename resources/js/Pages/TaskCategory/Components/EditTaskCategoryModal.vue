@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import {useToastHelper} from "@/Composables/useToastHelper";
-import {TaskCategoryResource} from "@/Pages/Resources/TaskCategory.resource";
+import {TaskCategoryResource} from "@/Resources/TaskCategory.resource";
 import {useForm} from "@inertiajs/vue3";
 import AppDialogModal from "@/Components/AppDialogModal.vue";
+import {UserResource} from "@/Resources/User.resource";
+import SearchAutocomplete from "@/Components/SearchAutocomplete.vue";
 
 const { toastSuccess, toastError } = useToastHelper();
 
@@ -15,13 +17,18 @@ const active = defineModel<boolean>('active');
 const form = useForm<{
     name: string;
     user_id: number | null;
+    user: UserResource | null;
 }>({
     name: props.taskCategory.name,
     user_id: props.taskCategory?.userId,
+    user: null,
 });
 
 const handleSubmit = () => {
-    form.put(route('task-categories.update', props.taskCategory.id), {
+    form.transform((data) => ({
+        ...data,
+        user_id: data.user?.id,
+    })).put(route('task-categories.update', props.taskCategory.id), {
         onSuccess: () => {
             toastSuccess('Kategoria została zaktualizowana pomyślnie!');
             active.value = false;
@@ -56,14 +63,11 @@ const handleSubmit = () => {
                 <label class="p-1 p-invalid text-red-500">{{ form.errors.name }}</label>
             </div>
             <div class="flex flex-col gap-2">
-                <label for="userId">Użytkownik</label>
-                <InputText
-                    id="userId"
-                    v-model="form.user_id"
-                    maxlength="255"
-                    placeholder="Wybierz użytkownika"
-                    :class="{ 'p-invalid': form.errors.user_id }"
-                    @change="form.clearErrors('user_id')"
+                <label for="user">Użytkownik</label>
+                <SearchAutocomplete
+                    id="user"
+                    v-model="form.user"
+                    route="api.users.search"
                 />
                 <label class="p-1 p-invalid text-red-500">{{ form.errors.user_id }}</label>
             </div>

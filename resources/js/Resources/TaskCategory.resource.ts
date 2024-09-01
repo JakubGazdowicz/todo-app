@@ -1,4 +1,4 @@
-import {UserResource} from "@/Pages/Resources/User.resource";
+import {UserResource} from "@/Resources/User.resource";
 
 export type TaskCategoryResource = {
     id: number;

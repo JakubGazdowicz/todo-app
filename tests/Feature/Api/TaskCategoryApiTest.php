@@ -47,8 +47,8 @@ describe('TaskCategoryApiTest', function () {
                         ->and($data['id'])->toBe($this->taskCategory->id)
                         ->and($data['name'])->toBe($this->taskCategory->name)
                         ->and($data['userId'])->toBe($this->taskCategory->user_id)
-                        ->and($data['createdAt'])->toBe(Carbon::dateFormat($this->user->created_at))
-                        ->and($data['updatedAt'])->toBe(Carbon::dateFormat($this->user->updated_at));
+                        ->and($data['createdAt'])->toBe(Carbon::dateFormat($this->taskCategory->created_at))
+                        ->and($data['updatedAt'])->toBe(Carbon::dateFormat($this->taskCategory->updated_at));
                 });
         });
     });
